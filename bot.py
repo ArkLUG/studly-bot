@@ -14,7 +14,7 @@ async def on_ready():
 # async def on_message(message: discord.Message):
 #     print(f"Received {message.content}")
 
-@bot.slash_command(name = "studs", description = "Get the number of studs in lenght at 1:38, 1:42, and 1:48 scale")
+@bot.slash_command(name = "studs", description = "Get the number of studs in length at 1:38, 1:42, and 1:48 scale")
 async def studs(
     ctx: discord.ApplicationContext,
     length: discord.Option(int),
