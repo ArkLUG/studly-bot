@@ -7,4 +7,4 @@ COPY bot.py bot.py
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python ./bot.py"]
+ENTRYPOINT ["/entrypoint.sh"]
