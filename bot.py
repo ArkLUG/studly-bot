@@ -2,7 +2,7 @@ import discord
 import os # default module
 from dotenv import load_dotenv
 
-load_dotenv() # load all the variables from the env file
+load_dotenv() # load all the variables from the .env file
 bot = discord.Bot()
 
 @bot.event
@@ -10,7 +10,11 @@ async def on_ready():
     await bot.sync_commands()
     print(f"{bot.user} is ready and online!")
 
-@bot.slash_command(name = "studs", description = "Get the number of studs at 1:38, 1:42, and 1:48 scale")
+# @bot.event
+# async def on_message(message: discord.Message):
+#     print(f"Received {message.content}")
+
+@bot.slash_command(name = "studs", description = "Get the number of studs in lenght at 1:38, 1:42, and 1:48 scale")
 async def studs(
     ctx: discord.ApplicationContext,
     length: discord.Option(int),
@@ -29,15 +33,19 @@ async def studs(
     studs_1_42 = (studs_1_42 * 100) / 100
     studs_1_48 = (studs_1_48 * 100) / 100
 
-    await ctx.respond(
-        f"""Answers are approximate:
-    {length} {unit} at 1:48 is {round(studs_1_48, 2)} studs.
-    {length} {unit} at 1:42 is {round(studs_1_42, 2)} studs.
-    {length} {unit} at 1:38 is {round(studs_1_38, 2)} studs."""
+    embed = discord.Embed(
+        title=f"{length} {unit} to studs in length",
+        description="Answers are approximate",
+        color=discord.Colour.lighter_grey(),
     )
 
-@bot.slash_command(name = "plates", description = "Get the number of plates at 1:38, 1:42, and 1:48 scale")
-async def studs(
+    embed.add_field(name="1:48 scale", value=f"{round(studs_1_48, 2)} studs", inline=True)
+    embed.add_field(name="1:42 scale", value=f"{round(studs_1_42, 2)} studs", inline=True)
+    embed.add_field(name="1:38 scale", value=f"{round(studs_1_38, 2)} studs", inline=True)
+    await ctx.respond(embed=embed)
+
+@bot.slash_command(name = "plates", description = "Get the number of plates tall at 1:38, 1:42, and 1:48 scale")
+async def plates(
     ctx: discord.ApplicationContext,
     length: discord.Option(int),
     unit: discord.Option(str, choices=['feet', 'meters'])):
@@ -55,15 +63,19 @@ async def studs(
     plates_1_42 = (plates_1_42 * 100) / 100
     plates_1_48 = (plates_1_48 * 100) / 100
 
-    await ctx.respond(
-        f"""Answers are approximate:
-    {length} {unit} at 1:48 is {round(plates_1_48, 2)} plates.
-    {length} {unit} at 1:42 is {round(plates_1_42, 2)} plates.
-    {length} {unit} at 1:38 is {round(plates_1_38, 2)} plates."""
+    embed = discord.Embed(
+        title=f"{length} {unit} to plates in height",
+        description="Answers are approximate",
+        color=discord.Colour.lighter_grey(),
     )
 
-@bot.slash_command(name = "bricks", description = "Get the number of bricks at 1:38, 1:42, and 1:48 scale")
-async def studs(
+    embed.add_field(name="1:48 scale", value=f"{round(plates_1_48, 2)} plates", inline=True)
+    embed.add_field(name="1:42 scale", value=f"{round(plates_1_42, 2)} plates", inline=True)
+    embed.add_field(name="1:38 scale", value=f"{round(plates_1_38, 2)} plates", inline=True)
+    await ctx.respond(embed=embed)
+
+@bot.slash_command(name = "bricks", description = "Get the number of bricks tall at 1:38, 1:42, and 1:48 scale")
+async def bricks(
     ctx: discord.ApplicationContext,
     length: discord.Option(int),
     unit: discord.Option(str, choices=['feet', 'meters'])):
@@ -81,15 +93,19 @@ async def studs(
     bricks_1_42 = (bricks_1_42 * 100) / 100
     bricks_1_48 = (bricks_1_48 * 100) / 100
 
-    await ctx.respond(
-        f"""Answers are approximate:
-    {length} {unit} at 1:48 is {round(bricks_1_48, 2)} bricks.
-    {length} {unit} at 1:42 is {round(bricks_1_42, 2)} bricks.
-    {length} {unit} at 1:38 is {round(bricks_1_38, 2)} bricks."""
+    embed = discord.Embed(
+        title=f"{length} {unit} to bricks in height",
+        description="Answers are approximate",
+        color=discord.Colour.lighter_grey(),
     )
 
-@bot.slash_command(name = "bp", description = "Get the number of bricks and plates at 1:38, 1:42, and 1:48 scales")
-async def studs(
+    embed.add_field(name="1:48 scale", value=f"{round(bricks_1_48, 2)} bricks", inline=True)
+    embed.add_field(name="1:42 scale", value=f"{round(bricks_1_42, 2)} bricks", inline=True)
+    embed.add_field(name="1:38 scale", value=f"{round(bricks_1_38, 2)} bricks", inline=True)
+    await ctx.respond(embed=embed)
+
+@bot.slash_command(name = "bp", description = "Get the number of bricks and plates tall at 1:38, 1:42, and 1:48 scales")
+async def bp(
     ctx: discord.ApplicationContext,
     length: discord.Option(int),
     unit: discord.Option(str, choices=['feet', 'meters'])):
@@ -110,12 +126,15 @@ async def studs(
     bricks_1_42 = round(bp_1_42)
     bricks_1_48 = round(bp_1_48)
 
-
-    await ctx.respond(
-        f"""Answers are approximate:
-        {length} {unit} at 1:48 is {bricks_1_48} bricks and {round(plates_1_48, 2)} plates.
-        {length} {unit} at 1:42 is {bricks_1_42} bricks and {round(plates_1_42, 2)} plates.
-        {length} {unit} at 1:38 is {bricks_1_38} bricks and {round(plates_1_38, 2)} plates."""
+    embed = discord.Embed(
+        title=f"{length} {unit} to bricks and plates in height",
+        description="Rounded to the nearest whole plate",
+        color=discord.Colour.lighter_grey(),
     )
+
+    embed.add_field(name="1:48 scale", value=f"{bricks_1_48} bricks and {round(plates_1_48)} plates", inline=True)
+    embed.add_field(name="1:42 scale", value=f"{bricks_1_42} bricks and {round(plates_1_42)} plates", inline=True)
+    embed.add_field(name="1:38 scale", value=f"{bricks_1_38} bricks and {round(plates_1_38)} plates", inline=True)
+    await ctx.respond(embed=embed)
 
 bot.run(os.getenv('DISCORD_TOKEN')) # run the bot with the token
