@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv() # load all the variables from the .env file
 bot = discord.Bot()
+feet_or_meters = discord.Option(str, choices=['feet', 'meters'])
 
 @bot.event
 async def on_ready():
@@ -14,11 +15,39 @@ async def on_ready():
 # async def on_message(message: discord.Message):
 #     print(f"Received {message.content}")
 
+@bot.slash_command(name="help", description="Display Studlybot's commands")
+async def help(ctx: discord.ApplicationContext, args: discord.Option(discord.SlashCommandOptionType.string, "args", required=False, default=None)):
+    help_embed = discord.Embed(title="Studly commands:")
+    command_names_list = [x.name for x in bot.commands]
+    if not args:
+        help_embed.add_field(
+            name="List of supported commands:",
+            value="\n".join([str(i+1)+". "+x.name for i,x in enumerate(bot.commands)]),
+            inline=False
+        )
+        help_embed.add_field(
+        name="Details",
+        value="Type `/help <command name>` for more details about each command.",
+        inline=False
+    )
+
+    elif args in command_names_list:
+        help_embed.add_field(
+        name=args,
+        value=bot.get_command(args).description
+    )
+    else:
+        help_embed.add_field(
+        name="Error",
+        value="Not a valid command"
+    )
+    await ctx.send(embed=help_embed)
+
 @bot.slash_command(name = "studs", description = "Get the number of studs in length at 1:38, 1:42, and 1:48 scale")
 async def studs(
     ctx: discord.ApplicationContext,
     length: discord.Option(int),
-    unit: discord.Option(str, choices=['feet', 'meters'])):
+    unit: feet_or_meters):
 
     if (length == "feet"):
         studs_1_38 = length * 1
@@ -48,7 +77,7 @@ async def studs(
 async def plates(
     ctx: discord.ApplicationContext,
     length: discord.Option(int),
-    unit: discord.Option(str, choices=['feet', 'meters'])):
+    unit: feet_or_meters):
 
     if (length == "feet"):
         plates_1_38 = length * (1 * 2.5)
@@ -78,7 +107,7 @@ async def plates(
 async def bricks(
     ctx: discord.ApplicationContext,
     length: discord.Option(int),
-    unit: discord.Option(str, choices=['feet', 'meters'])):
+    unit: feet_or_meters):
 
     if (length == "feet"):
         bricks_1_38 = length * (1 * 2.5 / 3)
@@ -108,7 +137,7 @@ async def bricks(
 async def bp(
     ctx: discord.ApplicationContext,
     length: discord.Option(int),
-    unit: discord.Option(str, choices=['feet', 'meters'])):
+    unit: feet_or_meters):
 
     if (length == "feet"):
         bp_1_38 = length * (1 * 2.5 / 3)
