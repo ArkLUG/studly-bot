@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv() # load all the variables from the .env file
 bot = discord.Bot()
-feet_or_meters = discord.Option(str, choices=['feet', 'meters'])
+feet_or_meters = discord.Option(str, choices=['feet', 'meters'], default='feet')
 
 @bot.event
 async def on_ready():
@@ -41,7 +41,7 @@ async def help(ctx: discord.ApplicationContext, args: discord.Option(discord.Sla
         name="Error",
         value="Not a valid command"
     )
-    await ctx.send(embed=help_embed)
+    await ctx.respond(embed=help_embed)
 
 @bot.slash_command(name = "studs", description = "Get the number of studs in length at 1:38, 1:42, and 1:48 scale")
 async def studs(
