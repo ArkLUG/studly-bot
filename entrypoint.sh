@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-python ./bot.py
+python ./main.py
