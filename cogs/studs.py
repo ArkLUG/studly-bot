@@ -9,7 +9,7 @@ class Studs(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f"Studs Cog is loaded!")
+        print(f"{type(self).__name__} Cog is loaded!")
 
     @slash_command(name = "studs", description = "Get the number of studs in length at 1:38, 1:42, and 1:48 scale")
     async def studs(self,

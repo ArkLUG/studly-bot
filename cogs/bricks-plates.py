@@ -9,7 +9,7 @@ class BrickPlates(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f"BrickPlates Cog is loaded!")
+        print(f"{type(self).__name__} Cog is loaded!")
 
     @slash_command(name = "bp", description = "Get the number of bricks and plates tall at 1:38, 1:42, and 1:48 scales")
     async def bp(

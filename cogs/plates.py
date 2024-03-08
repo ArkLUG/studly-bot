@@ -9,7 +9,7 @@ class Plates(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f"Plates Cog is loaded!")
+        print(f"{type(self).__name__} Cog is loaded!")
 
     @slash_command(name = "plates", description = "Get the number of plates tall at 1:38, 1:42, and 1:48 scale")
     async def plates(

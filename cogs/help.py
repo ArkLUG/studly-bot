@@ -10,7 +10,7 @@ class Help(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f"Help Cog is loaded!")
+        print(f"{type(self).__name__} Cog is loaded!")
 
     @slash_command(name="help", description="Display Studlybot's commands")
     async def help(self, ctx: discord.ApplicationContext, command: discord.Option(discord.SlashCommandOptionType.string, "command", required=False, default=None)):
