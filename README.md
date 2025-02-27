@@ -65,8 +65,3 @@ To add the bot to your Discord server, follow these steps:
 ## Contributing
 
 Feel free to submit issues or pull requests if you have any improvements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License.
-
